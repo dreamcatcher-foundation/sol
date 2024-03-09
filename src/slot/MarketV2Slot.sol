@@ -24,19 +24,19 @@ contract MarketV2Slot {
     }
 
     // EVENTS
-    event MarketV2__ExchangeNameChanged(address oldExchangeName, address newExchangeName);
+    event MarketV2__ExchangeNameChanged(string oldExchangeName, string newExchangeName);
     event MarketV2__UniswapV2FactoryChanged(address oldUniswapV2Factory, address newUniswapV2Factory);
     event MarketV2__UniswapV2RouterChanged(address oldUniswapV2Router, address newUniswapV2Router);
     event MarketV2__Swap(address[] path, uint256 amountInR18, uint256 amountOutR18);
 
     // PROPERTIES
     function __marketV2__exchangeName() internal view returns (string memory) {
-        return marketV2()._exchange;
+        return marketV2()._exchangeName;
     }
 
     function __marketV2__changeExchangeName(string memory newExchangeName) internal returns (bool) {
         __marketV2__beforeExchangeNameChanged(newExchangeName);
-        address oldExchangeName = __marketV2__exchangeName();
+        string memory oldExchangeName = __marketV2__exchangeName();
         marketV2()._exchangeName = newExchangeName;
         emit MarketV2__ExchangeNameChanged(oldExchangeName, newExchangeName);
         __marketV2__afterExchangeNameChanged(newExchangeName);
@@ -105,24 +105,24 @@ contract MarketV2Slot {
     // PRICE FEED
     function __marketV2__price(address[] memory pair) internal view returns (uint256 r18) {
         __marketV2__onlyValidPair(pair);
-        return pair.price(__marketV2__uniswapV2Factory(), __marketV2__uniswapV2Router());
+        return pair.price(IUniswapV2Factory(__marketV2__uniswapV2Factory()), IUniswapV2Router02(__marketV2__uniswapV2Router()));
     }
 
-    function __marketV2__amountOut(address[] pair) internal view returns (uint256 r18) {
+    function __marketV2__amountOut(address[] memory pair) internal view returns (uint256 r18) {
         __marketV2__onlyValidPair(pair);
-        return pair.amountOut(__marketV2__uniswapV2Factory(), __marketV2__uniswapV2Router());
+        return pair.amountOut(IUniswapV2Factory(__marketV2__uniswapV2Factory()), IUniswapV2Router02(__marketV2__uniswapV2Router()));
     }
 
-    function __marketV2__amountOut(address[] path, uint256 amountInR18) internal view returns (uint256 r18) {
+    function __marketV2__amountOut(address[] memory path, uint256 amountInR18) internal view returns (uint256 r18) {
         __marketV2__onlyValidPath(path);
-        return path.amountOut(__marketV2__uniswapV2Factory(), __marketV2__uniswapV2Router(), amountInR18);
+        return path.amountOut(IUniswapV2Factory(__marketV2__uniswapV2Factory()), IUniswapV2Router02(__marketV2__uniswapV2Router()), amountInR18);
     }
 
     // SWAP
     function __marketV2__swap(address[] memory path, uint256 amountInR18) internal returns (uint256 r18) {
         __marketV2__beforeSwap(path, amountInR18);
         __marketV2__onlyValidPath(path);
-        uint256 amountOutR18 = path.swap(__marketV2__uniswapV2Factory(), __marketV2__uniswapV2Router(), amountInR18, 200);
+        uint256 amountOutR18 = path.swap(IUniswapV2Factory(__marketV2__uniswapV2Factory()), IUniswapV2Router02(__marketV2__uniswapV2Router()), amountInR18, 200);
         emit MarketV2__Swap(path, amountInR18, amountOutR18);
         __marketV2__afterSwap(path, amountInR18, amountOutR18);
         return amountOutR18;

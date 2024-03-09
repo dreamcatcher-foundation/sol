@@ -43,7 +43,7 @@ contract TokenPaletteSlot {
         return tokenPalette()._tokenContracts.length();
     }
 
-    function __tokenPalette__maximumTokenContractsLength() internal view returns (uint256) {
+    function __tokenPalette__maximumTokenContractsLength() internal pure returns (uint256) {
         return 32;
     }
 
@@ -120,7 +120,7 @@ contract TokenPaletteSlot {
     }
 
     function __tokenPalette__tokenSymbol(uint256 tokenContractId) internal view returns (string memory) {
-        return __tokenPalette__tokenInterface(tokenContractId).decimals();
+        return __tokenPalette__tokenInterface(tokenContractId).symbol();
     }
 
     function __tokenPalette__tokenDecimals(uint256 tokenContractId) internal view returns (uint8) {
@@ -151,21 +151,21 @@ contract TokenPaletteSlot {
 
     function __tokenPalette__approveToken(uint256 tokenContractId, address spender, uint256 amountR18) internal returns (bool) {
         __tokenPalette__beforeTokenApproved(tokenContractId, spender, amountR18);
-        __tokenPalette__tokenInterface(tokenContractId).approve(spender, amountR18.fromR18ToR(__tokenPalette__tokenDecimals()));
+        __tokenPalette__tokenInterface(tokenContractId).approve(spender, amountR18.fromR18ToR(__tokenPalette__tokenDecimals(tokenContractId)));
         __tokenPalette__afterTokenApproved(tokenContractId, spender, amountR18);
         return true;
     }
 
     function __tokenPalette__transferToken(uint256 tokenContractId, address to, uint256 amountR18) internal returns (bool) {
         __tokenPalette__beforeTokenTransferred(tokenContractId, to, amountR18);
-        __tokenPalette__tokenInterface(tokenContractId).transfer(to, amountR18.fromR18ToR(__tokenPalette__tokenDecimals()));
-        __tokenPalette__afterTokenTransferred(tokenContractId, to, amount18);
+        __tokenPalette__tokenInterface(tokenContractId).transfer(to, amountR18.fromR18ToR(__tokenPalette__tokenDecimals(tokenContractId)));
+        __tokenPalette__afterTokenTransferred(tokenContractId, to, amountR18);
         return true;
     }
 
     function __tokenPalette__transferFromToken(uint256 tokenContractId, address from, address to, uint256 amountR18) internal returns (bool) {
         __tokenPalette__beforeTokenTransferredFrom(tokenContractId, from, to, amountR18);
-        __tokenPalette__tokenInterface(tokenContractId).transferFrom(from, to, amountR18.fromR18ToR(__tokenPalette__tokenDecimals()));
+        __tokenPalette__tokenInterface(tokenContractId).transferFrom(from, to, amountR18.fromR18ToR(__tokenPalette__tokenDecimals(tokenContractId)));
         __tokenPalette__afterTokenTransferredFrom(tokenContractId, from, to, amountR18);
         return true;
     }

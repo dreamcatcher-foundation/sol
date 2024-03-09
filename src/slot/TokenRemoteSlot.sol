@@ -33,7 +33,7 @@ contract TokenRemoteSlot {
         address oldTokenContract = __tokenRemote__controlledTokenContract();
         tokenRemote()._controlledTokenContract = newTokenContract;
         emit TokenRemote__ControlledTokenContractChanged(oldTokenContract, newTokenContract);
-        __tokenRemote__afterControlledTokenContractChanged(newTokenContract)
+        __tokenRemote__afterControlledTokenContractChanged(newTokenContract);
         return true;
     }
 

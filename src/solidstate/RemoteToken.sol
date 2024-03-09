@@ -15,11 +15,13 @@ contract RemoteToken is ERC20, ERC20Burnable, ERC20Snapshot, ERC20Permit, Ownabl
     function mint(address account, uint256 amount) public returns (bool) {
         _checkOwner();
         _mint(account, amount);
+        return true;
     }
 
     function burn(address account, uint256 amount) public returns (bool) {
         _checkOwner();
         _burn(account, amount);
+        return true;
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal override(ERC20, ERC20Snapshot) {

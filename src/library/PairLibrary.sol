@@ -19,11 +19,11 @@ library PairLibrary {
     }
 
     function decimals0(address[] memory pair) internal view returns (uint8) {
-        return IERC20(pair.token0()).decimals();
+        return IToken(pair.token0()).decimals();
     }
 
     function decimals1(address[] memory pair) internal view returns (uint8) {
-        return IERC20(pair.token1()).decimals();
+        return IToken(pair.token1()).decimals();
     }
 
     function toInterface(address[] memory pair, IUniswapV2Factory uniswapV2Factory) internal view returns (IUniswapV2Pair) {
@@ -58,16 +58,16 @@ library PairLibrary {
             return uniswapV2Router02
                 .quote(
                     10 ** pair.decimals0(),
-                    pair.reserves(uniswapV2Factory),
-                    pair.reserves(uniswapV2Factory)
+                    pair.reserves(uniswapV2Factory)[0],
+                    pair.reserves(uniswapV2Factory)[1]
                 )
                 .fromRToR18(pair.decimals1());
         }
         return uniswapV2Router02
             .quote(
                 10 ** pair.decimals1(),
-                pair.reserves(uniswapV2Factory),
-                pair.reserves(uniswapV2Factory)
+                pair.reserves(uniswapV2Factory)[1],
+                pair.reserves(uniswapV2Factory)[0]
             )
             .fromRToR18(pair.decimals1());
     }
@@ -80,16 +80,16 @@ library PairLibrary {
             return uniswapV2Router02
                 .getAmountOut(
                     10 ** pair.decimals0(),
-                    pair.reserves(uniswapV2Factory),
-                    pair.reserves(uniswapV2Factory)
+                    pair.reserves(uniswapV2Factory)[0],
+                    pair.reserves(uniswapV2Factory)[1]
                 )
                 .fromRToR18(pair.decimals1());
         }
         return uniswapV2Router02
             .getAmountOut(
                 10 ** pair.decimals1(),
-                pair.reserves(uniswapV2Factory),
-                pair.reserves(uniswapV2Factory)
+                pair.reserves(uniswapV2Factory)[1],
+                pair.reserves(uniswapV2Factory)[0]
             )
             .fromRToR18(pair.decimals1());
     }

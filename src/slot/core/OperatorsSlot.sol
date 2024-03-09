@@ -88,11 +88,11 @@ contract OperatorsSlot {
         return true;
     }
 
-    function __operators__beforeMemberCheck(address account) internal virtual returns (bool) {
+    function __operators__beforeMemberCheck(address account) internal view virtual returns (bool) {
         return true;
     }
 
-    function __operators__afterMemberCheck(address account) internal virtual returns (bool) {
+    function __operators__afterMemberCheck(address account) internal view virtual returns (bool) {
         return true;
     }
 

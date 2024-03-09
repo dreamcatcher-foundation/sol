@@ -1,6 +1,6 @@
 [o] ConversionLibrary
 [o] PairLibrary
-[x] VaultLibrary 
+[o] VaultLibrary 
 
 [o] IChrysalis
 [o] IExtension
@@ -13,16 +13,13 @@
 [o] TokenRemoteSlot
 [o] MarketV2Slot
 [o] TokenPaletteSlot
-[x] VaultSlot
+[o] VaultSlot
 
-[x] OperatorsExtension
-[x] ManagersExtension
-[x] VaultExtension
+[o] VaultExtension
 
-[x] ChrysalisFactorySolidstate
+[o] ChrysalisVaultFactory
 [o] RemoteTokenFactory
 [o] RemoteToken
 [o] Chrysalis
 
 [x] TEST
-

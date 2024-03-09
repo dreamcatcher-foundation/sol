@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import '../../../imports/openzeppelin/utils/structs/EnumerableSet.sol';
+import '../../imports/openzeppelin/utils/structs/EnumerableSet.sol';
 
 contract ManagersSlot {
     using EnumerableSet for EnumerableSet.AddressSet;
@@ -77,11 +77,11 @@ contract ManagersSlot {
         return true;
     }
 
-    function __managers__beforeMemberCheck(address account) internal virtual returns (bool) {
+    function __managers__beforeMemberCheck(address account) internal view virtual returns (bool) {
         return true;
     }
 
-    function __managers__afterMemberCheck(address account) internal virtual returns (bool) {
+    function __managers__afterMemberCheck(address account) internal view virtual returns (bool) {
         return true;
     }
 
