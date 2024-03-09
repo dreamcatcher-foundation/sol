@@ -20,16 +20,16 @@ contract OperatorsSlot {
     }
 
     // EVENTS
-    event OperatorsSlot__Claimed(address account);
-    event OperatorsSlot__RoleGranted(address account);
-    event OperatorsSlot__RoleRevoked(address account);
+    event Operators__Claimed(address account);
+    event Operators__RoleGranted(address account);
+    event Operators__RoleRevoked(address account);
 
     // FOR INITIAL CLAIMING PROCESS
     function __operators__claim() internal returns (bool) {
         __operators__beforeClaim();
         require(__operators__membersLength() == 0, 'OperatorsSlot: can only be claimed if there are no operators');
         __operators__grantRoleTo(msg.sender);
-        emit OperatorsSlot__Claimed(msg.sender);
+        emit Operators__Claimed(msg.sender);
         __operators__afterClaim();
         return true;
     }
@@ -55,7 +55,7 @@ contract OperatorsSlot {
         if (!__operators__hasMember(account)) {
             __operators__beforeRoleGrantedTo(account);
             operators()._members.add(account);
-            emit OperatorsSlot__RoleGranted(account);
+            emit Operators__RoleGranted(account);
             __operators__afterRoleGrantedTo(account);
         }
         return true;
@@ -65,7 +65,7 @@ contract OperatorsSlot {
         if (__operators__hasMember(account)) {
             __operators__beforeRoleRevokedFrom(account);
             operators()._members.remove(account);
-            emit OperatorsSlot__RoleRevoked(account);
+            emit Operators__RoleRevoked(account);
             __operators__afterRoleRevokedFrom(account);
         }
         return true;

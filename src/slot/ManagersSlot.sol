@@ -20,8 +20,8 @@ contract ManagersSlot {
     }
 
     // EVENTS
-    event ManagersSlot__RoleGranted(address account);
-    event ManagersSlot__RoleRevoked(address account);
+    event Managers__RoleGranted(address account);
+    event Managers__RoleRevoked(address account);
 
     // PROPERTIES
     function __managers__members(uint256 managerId) internal view returns (address) {
@@ -44,7 +44,7 @@ contract ManagersSlot {
         if (!__managers__hasMember(account)) {
             __managers__beforeRoleGrantedTo(account);
             managers()._members.add(account);
-            emit ManagersSlot__RoleGranted(account);
+            emit Managers__RoleGranted(account);
             __managers__afterRoleGrantedTo(account);
         }
         return true;
@@ -54,7 +54,7 @@ contract ManagersSlot {
         if (__managers__hasMember(account)) {
             __managers__beforeRoleRevokedFrom(account);
             managers()._members.remove(account);
-            emit ManagersSlot__RoleRevoked(account);
+            emit Managers__RoleRevoked(account);
             __managers__afterRoleRevokedFrom(account);
         }
         return true;

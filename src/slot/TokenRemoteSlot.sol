@@ -11,7 +11,7 @@ contract TokenRemoteSlot {
     }
 
     // MEMORY
-    bytes32 constant internal TOKEN_REMOTE = bytes32(uint256(keccak256('eip1967.TOKEN_REMOTE')));
+    bytes32 constant internal TOKEN_REMOTE = bytes32(uint256(keccak256('eip1967.TOKEN_REMOTE')) - 1);
 
     function tokenRemote() internal pure returns (TokenRemote storage sl) {
         bytes32 location = TOKEN_REMOTE;
@@ -54,7 +54,7 @@ contract TokenRemoteSlot {
         return true;
     }
 
-    function __tokenRemote__beforeControlledTokenTransfer(address to, uint256 amountR18) internal virtual returns (bool) {
+    function __tokenRemote__beforeControlledTokenTransferred(address to, uint256 amountR18) internal virtual returns (bool) {
         return true;
     }
 
@@ -139,7 +139,7 @@ contract TokenRemoteSlot {
     }
 
     function __tokenRemote__transferControlledToken(address to, uint256 amountR18) internal returns (bool) {
-        __tokenRemote__beforeControlledTokenTransfer(to, amountR18);
+        __tokenRemote__beforeControlledTokenTransferred(to, amountR18);
         __tokenRemote__controlledTokenInterface().transfer(to, amountR18.fromR18ToR(__tokenRemote__controlledTokenDecimals()));
         __tokenRemote__afterControlledTokenTransferred(to, amountR18);
         return true;

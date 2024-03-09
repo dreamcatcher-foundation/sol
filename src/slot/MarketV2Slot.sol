@@ -14,7 +14,7 @@ contract MarketV2Slot {
     }
 
     // MEMORY
-    bytes32 constant internal MARKET_V2 = bytes32(uint256(keccak256('eip1967.MARKET_V2')));
+    bytes32 constant internal MARKET_V2 = bytes32(uint256(keccak256('eip1967.MARKET_V2')) - 1);
 
     function marketV2() internal pure returns (MarketV2 storage sl) {
         bytes32 location = MARKET_V2;

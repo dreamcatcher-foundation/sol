@@ -1,5 +1,6 @@
 [o] ConversionLibrary
 [o] PairLibrary
+[x] VaultLibrary 
 
 [o] IChrysalis
 [o] IExtension
@@ -11,4 +12,5 @@
 [o] ManagersSlot
 [o] TokenRemoteSlot
 [o] MarketV2Slot
-[x] TokenPaletteSlot
+[o] TokenPaletteSlot
+[x] VaultSlot
