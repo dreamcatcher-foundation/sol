@@ -14,3 +14,15 @@
 [o] MarketV2Slot
 [o] TokenPaletteSlot
 [x] VaultSlot
+
+[x] OperatorsExtension
+[x] ManagersExtension
+[x] VaultExtension
+
+[x] ChrysalisFactorySolidstate
+[o] RemoteTokenFactory
+[o] RemoteToken
+[o] Chrysalis
+
+[x] TEST
+
