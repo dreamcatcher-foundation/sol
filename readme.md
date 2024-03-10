@@ -1,3 +1,5 @@
+npx hardhat flatten 'path'.sol > 'path'.sol
+
 [o] ConversionLibrary
 [o] PairLibrary
 [o] VaultLibrary 
@@ -22,4 +24,15 @@
 [o] RemoteToken
 [o] Chrysalis
 
-[x] TEST
+[o] TEST
+
+[o] TokenSlotLib & TokenSlot
+        DEL TokenRemoteSlot
+        DEL RemoteTokenFactory
+        DEL RemoteToken
+        DEL IRemoteToken
+        DEL IRemoteTokenFactory
+
+[o] AuthSlotLib & AuthSlot
+        DEL OperatorsSlot
+        DEL ManagersSlot

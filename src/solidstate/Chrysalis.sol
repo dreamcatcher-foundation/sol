@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import '../../imports/solidstate/contracts/proxy/diamond/SolidStateDiamond.sol';
-import '../../imports/solidstate/contracts/proxy/diamond/ISolidStateDiamond.sol';
-import '../../imports/solidstate/contracts/proxy/diamond/readable/IDiamondReadable.sol';
-import '../../imports/solidstate/contracts/proxy/diamond/writable/IDiamondWritable.sol';
-import '../../imports/solidstate/contracts/proxy/diamond/writable/IDiamondWritableInternal.sol';
-import '../interface/IExtension.sol';
+import '../non-native/solidstate/contracts/proxy/diamond/SolidStateDiamond.sol';
+import '../non-native/solidstate/contracts/proxy/diamond/ISolidStateDiamond.sol';
+import '../non-native/solidstate/contracts/proxy/diamond/readable/IDiamondReadable.sol';
+import '../non-native/solidstate/contracts/proxy/diamond/writable/IDiamondWritable.sol';
+import '../non-native/solidstate/contracts/proxy/diamond/writable/IDiamondWritableInternal.sol';
+import '../interface/IConsole.sol';
 
 contract Chrysalis is SolidStateDiamond {
     function addSelectors(address implementation, bytes4[] memory selectors) public onlyOwner() returns (bool) {
@@ -30,11 +30,17 @@ contract Chrysalis is SolidStateDiamond {
         return true;
     }
 
-    function install(address extension) public onlyOwner()returns (bool) {
-        return addSelectors(extension, IExtension(extension).selectors());
+    function install(address console) public onlyOwner()returns (bool) {
+        IConsole consoleInterface = IConsole(console);
+        bytes4[] memory selectors = consoleInterface.selectors();
+        addSelectors(console, selectors);
+        return true;
     }
 
-    function uninstall(address extension) public onlyOwner()returns (bool) {
-        return removeSelectors(extension, IExtension(extension).selectors());
+    function uninstall(address console) public onlyOwner()returns (bool) {
+        IConsole consoleInterface = IConsole(console);
+        bytes4[] memory selectors = consoleInterface.selectors();
+        removeSelectors(console, selectors);
+        return true;
     }
 }
